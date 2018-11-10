@@ -17,8 +17,9 @@ public class SimProcess extends Circle{
     private int next;
     private int requireCpu;
     private int initProcess;
+    private int priority;
 
-    public SimProcess(int id, String name, int arrival, int cpu, int io, int process) {
+    public SimProcess(int id, String name, int arrival, int cpu, int io, int process, int priority) {
         this.id = id;
         this.name = name;
         this.arrival = arrival;
@@ -35,6 +36,7 @@ public class SimProcess extends Circle{
         this.io = io;
         this.process = process;
         this.initProcess = process;
+        this.priority = priority;
     }
 
     public String getName() {
@@ -44,6 +46,8 @@ public class SimProcess extends Circle{
     public int getArrivalTime() {
         return arrival;
     }
+
+    public int getPriority() { return priority; }
 
     public int getProcessId(){ return id;}
 
@@ -113,6 +117,7 @@ public class SimProcess extends Circle{
                 "\nWait Time: " + this.wait +
                 "\nCPU Time: " + this.cpu +
                 "\nIO Time: " + this.io +
+                "\nPriority: " + this.priority +
                 "\nProcess Time: " + this.initProcess +
                 "\nCompletion Time: " + this.terminate;
     }

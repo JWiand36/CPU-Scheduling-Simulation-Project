@@ -55,6 +55,8 @@ public class DisplayController {
 
     public String getProcessRate() { return side.getProcessRate(); }
 
+    public String getPriorityRate() { return side.getPriorityRate(); }
+
     public boolean getRandom(){ return side.getRandom(); }
 
     public String getProcessorRunTime(){ return side.getProcessorRunTime(); }

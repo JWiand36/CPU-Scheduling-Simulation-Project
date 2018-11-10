@@ -25,11 +25,13 @@ public class IO {
             int cpu;
             int io;
             int process;
+            int priority;
 
             //These next lines are to bypass the info text given to the user.
             s.nextLine();
             s.nextLine();
 
+            s.nextLine();
             s.nextLine();
             s.nextLine();
             s.nextLine();
@@ -43,13 +45,14 @@ public class IO {
                 cpu = Integer.parseInt(s.nextLine());
                 io = Integer.parseInt(s.nextLine());
                 process = Integer.parseInt(s.nextLine());
+                priority = Integer.parseInt(s.nextLine());
 
                 //This is to help space out each process
                 if(s.hasNext()) {
                     s.nextLine();
                 }
 
-                module.addProcess(name, arrival, cpu, io, process);
+                module.addProcess(name, arrival, cpu, io, process, priority);
             }
 
         }catch (FileNotFoundException e){e.printStackTrace();}

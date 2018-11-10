@@ -3,6 +3,8 @@ package sample;
 import javafx.scene.layout.BorderPane;
 import sample.display.DisplayController;
 import sample.module.MainModule;
+import sample.strategy.First;
+import sample.strategy.Priority;
 import sample.strategy.RoundRobin;
 import sample.strategy.Shortest;
 
@@ -11,6 +13,8 @@ public class Controller {
     private Thread thread;
     private Shortest shortest;
     private RoundRobin roundRobin;
+    private First first;
+    private Priority priority;
     private MainModule module;
     private IO io;
     private DisplayController display;
@@ -23,6 +27,8 @@ public class Controller {
 
         this.roundRobin = new RoundRobin(module, display);
         this.shortest = new Shortest(module, display);
+        this.first = new First(module, display);
+        this.priority = new Priority(module, display);
         this.io = new IO(module);
         this.thread = new Thread(shortest);
 
@@ -58,6 +64,10 @@ public class Controller {
             this.thread = new Thread(shortest);
         else if(strategy.equals("Round Robin"))
             this.thread = new Thread(roundRobin);
+        else if(strategy.equals("First"))
+            this.thread = new Thread(first);
+        else if(strategy.equals("Priority"))
+            this.thread = new Thread(priority);
     }
 
     private void setSettings(){
@@ -67,6 +77,7 @@ public class Controller {
         int cpu = 5;
         int io = 5;
         int pros = 5;
+        int pri = 5;
         int run = 1;
 
         //Checks to make sure everything is a number, otherwise use the values above.
@@ -78,10 +89,11 @@ public class Controller {
             cpu = Integer.parseInt(display.getCpuRate());
             io = Integer.parseInt(display.getIoRate());
             pros = Integer.parseInt(display.getProcessRate());
+            pri = Integer.parseInt(display.getPriorityRate());
             run = Integer.parseInt(display.getProcessorRunTime());
         }
 
-        module.editSettings(max, arv, cpu, io, pros, display.getRandom());
+        module.editSettings(max, arv, cpu, io, pros, pri, display.getRandom());
         setProcessTime(run);
     }
 

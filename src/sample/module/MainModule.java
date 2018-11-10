@@ -21,16 +21,18 @@ public class MainModule {
     private int cpuRate = 0;
     private int ioRate = 0;
     private int processRate = 0;
+    private int priorityRate = 0;
     private int newArrival = 0;
 
     private boolean random = false;
 
-    public void editSettings(int maxProcesses, int arrivalRate, int cpuRate, int ioRate, int processRate, boolean random){
+    public void editSettings(int maxProcesses, int arrivalRate, int cpuRate, int ioRate, int processRate, int priorityRate, boolean random){
         this.maxProcesses = maxProcesses;
         this.arrivalRate = arrivalRate;
         this.cpuRate = cpuRate;
         this.ioRate = ioRate;
         this.processRate = processRate;
+        this.priorityRate = priorityRate;
         this.random = random;
     }
 
@@ -49,7 +51,7 @@ public class MainModule {
     public boolean hasActiveProcesses(){
         return processes.size() > 0; }
 
-    public void addProcess(String name, int arrival, int cpu, int io, int process){
+    public void addProcess(String name, int arrival, int cpu, int io, int process, int priority){
         if(cpu < 1)
             cpu = process;
 
@@ -62,7 +64,11 @@ public class MainModule {
         if(process < 0)
             process = 0;
 
-        SimProcess newProcess = new SimProcess(this.processes.size() + 1, name, arrival, cpu, io, process);
+        if(priority < 0){
+            priority = 0;
+        }
+
+        SimProcess newProcess = new SimProcess(this.processes.size() + 1, name, arrival, cpu, io, process, priority);
         processes.add(newProcess);
     }
 
@@ -74,13 +80,14 @@ public class MainModule {
         int cpu = (int)(Math.random()*this.cpuRate)+1;
         int io = (int)(Math.random()*this.ioRate)+1;
         int process = (int)(Math.random()*this.processRate) + 1;
+        int priority = (int)(Math.random()*this.priorityRate) + 1;
 
         this.newArrival = (int)(Math.random() * this.arrivalRate) + arrival;
 
         if(cpu < 1)
             cpu = process;
 
-        SimProcess newProcess = new SimProcess(this.processes.size() + terminatedProcesses.size() + 1, name, arrival, cpu, io, process);
+        SimProcess newProcess = new SimProcess(this.processes.size() + terminatedProcesses.size() + 1, name, arrival, cpu, io, process, priority);
         processes.add(newProcess);
         return newProcess;
     }

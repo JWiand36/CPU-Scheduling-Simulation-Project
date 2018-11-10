@@ -70,4 +70,6 @@ public class SimProcessor {
     public int processTime(int time){ return runningProcess.getProcessTime() - time; }
 
     public void resetLastRunningTime(){ lastRunningTime = 0; }
+
+    public int getPriority() { return runningProcess.getPriority(); }
 }
