@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CPU-Scheduling-Simulation-Project:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CPU_Scheduling_Simulation_Project_jar</output-path>
+    <root id="archive" name="CPU-Scheduling-Simulation-Project.jar">
+      <element id="module-output" name="CPU-Scheduling-Simulation-Project" />
+    </root>
+  </artifact>
+</component>
