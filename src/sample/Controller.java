@@ -96,10 +96,10 @@ public class Controller {
 
         module.editSettings(max, arv, cpu, io, pros, pri, display.getRandom());
 
-        editProcessors(run);
-
         for(int i = 0; i < proc; i++)
             module.createProcessor();
+
+        editProcessors(run);
 
     }
 

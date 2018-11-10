@@ -96,10 +96,7 @@ public class MainModule {
     public void reset(){
         processes.clear();
         terminatedProcesses.clear();
-        for(SimProcessor processor: processors) {
-            processor.resetLastRunningTime();
-            processor.removeProcess(0);
-        }
+        processors.clear();
         this.newArrival = 0;
     }
 

@@ -46,7 +46,6 @@ public class RoundRobin implements StrategyInterface {
                     if (process.isTerminated()) { //This just checks to see if a process is ready to be terminated
                         module.terminateProcess(process);
                     }
-                    lastRunningProcess = process.getProcessId();
                 }
 
                 counter = 0;
@@ -67,12 +66,15 @@ public class RoundRobin implements StrategyInterface {
 
                     //Gets the next process from the list.
                     for (int i = module.getProcesses().size() - 1; i >= 0; i--) {
-                        if (module.getProcesses().get(i).getNextRunTime() <= time && module.getProcesses().get(i).getProcessId() > lastRunningProcess)
+                        if (module.getProcesses().get(i).getNextRunTime() <= time &&
+                                module.getProcesses().get(i).getProcessId() > lastRunningProcess &&
+                                !module.getProcesses().get(i).isRunning())
                             process = module.getProcesses().get(i);
                     }
 
                     if (process != null) {
                         processor.runProcess(process, time);
+                        lastRunningProcess = process.getProcessId();
                     } else
                         counter++;
                 }

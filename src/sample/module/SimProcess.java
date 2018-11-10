@@ -18,6 +18,7 @@ public class SimProcess extends Circle{
     private int requireCpu;
     private int initProcess;
     private int priority;
+    private boolean running = false;
 
     public SimProcess(int id, String name, int arrival, int cpu, int io, int process, int priority) {
         this.id = id;
@@ -63,13 +64,15 @@ public class SimProcess extends Circle{
     void enterProcessor(int time){
         this.start = time;
         this.wait += time - this.next;
+        this.running = true;
     }
 
     void exitProcessor(int time){
-        this.process -= time - start;
+        if(running) {
+            this.process -= time - start;
 
-        if(process > 0) {
-            this.requireCpu -= time - start;
+            if (process > 0) {
+                this.requireCpu -= time - start;
 
             /*
             This calculates the next time the process is available
@@ -77,22 +80,24 @@ public class SimProcess extends Circle{
             that it needs the IO, the IO time is added to the next time
             the process will be available.
             */
-            if (requireCpu <= 0) {
-                this.requireCpu = cpu;
-                this.next = time + io;
+                if (requireCpu <= 0) {
+                    this.requireCpu = cpu;
+                    this.next = time + io;
+                } else {
+                    this.next = time;
+                }
+
+                if (requireCpu > process) {
+                    requireCpu = process;
+                }
             } else {
-                this.next = time;
-            }
 
-            if(requireCpu > process){
-                requireCpu = process;
+                //IO has to be added because the process isn't truly done until it has
+                //completed both CPU and IO
+                this.terminate = time + io - arrival;
             }
-        }else {
-
-            //IO has to be added because the process isn't truly done until it has
-            //completed both CPU and IO
-            this.terminate = time + io - arrival;
         }
+        this.running = false;
     }
 
     public boolean isTerminated(){ return terminate >= 0; }
@@ -108,6 +113,8 @@ public class SimProcess extends Circle{
         this.process = process;
         this.priority = priority;
     }
+
+    public boolean isRunning() { return running; }
 
     public String toString(){
         return "ID: "+this.id +
