@@ -32,8 +32,6 @@ public class Controller {
         this.io = new IO(module);
         this.thread = new Thread(shortest);
 
-        module.createProcessor();
-
     }
 
     public void runSimulation(){
@@ -53,7 +51,7 @@ public class Controller {
         if(thread != null)
             thread.interrupt();
         thread = null;
-        module.clearProcesses();
+        module.reset();
     }
 
     //The user can select which strategy they wish to use and this sets the strategy in the thread.
@@ -79,11 +77,13 @@ public class Controller {
         int pros = 5;
         int pri = 5;
         int run = 1;
+        int proc = 1;
 
         //Checks to make sure everything is a number, otherwise use the values above.
         if(isNumber(display.getMax()) || isNumber(display.getArvRate()) ||
                 isNumber(display.getCpuRate()) || isNumber(display.getIoRate()) ||
-                isNumber(display.getProcessRate()) || isNumber(display.getProcessorRunTime())){
+                isNumber(display.getProcessRate()) || isNumber(display.getProcessorRunTime()) ||
+                isNumber(display.getProcessorRunTime()) || isNumber(display.getProcessors())){
             max = Integer.parseInt(display.getMax());
             arv = Integer.parseInt(display.getArvRate());
             cpu = Integer.parseInt(display.getCpuRate());
@@ -91,13 +91,19 @@ public class Controller {
             pros = Integer.parseInt(display.getProcessRate());
             pri = Integer.parseInt(display.getPriorityRate());
             run = Integer.parseInt(display.getProcessorRunTime());
+            proc = Integer.parseInt(display.getProcessors());
         }
 
         module.editSettings(max, arv, cpu, io, pros, pri, display.getRandom());
-        setProcessTime(run);
+
+        editProcessors(run);
+
+        for(int i = 0; i < proc; i++)
+            module.createProcessor();
+
     }
 
-    public void setProcessTime(int time){ module.getProcessor().setProcessTime(time);}
+    public void editProcessors(int runTime){ module.editProcessors(runTime); }
 
     private void getIOData(){ io.inputData(); }
 

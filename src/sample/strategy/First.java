@@ -31,8 +31,6 @@ public class First implements StrategyInterface {
         PriorityQueue<SimProcess> queue = new PriorityQueue<>(new AvailableComparator());
         PriorityQueue<SimProcess> busyQueue = new PriorityQueue<>(new AvailableComparator());
 
-        SimProcessor processor = module.getProcessor();
-
         if(!module.isRandom()){
             busyQueue.addAll(module.getProcesses());
             module.setMaxProcesses();
@@ -47,25 +45,27 @@ public class First implements StrategyInterface {
                 busyQueue.add(module.createRandomProcess(time));
             }
 
-            //These are the actions to swap a process when it has finished processing
-            if(processor.isFinsihedProcessing(time)){
-                SimProcess process = processor.removeProcess(time);
-                if(process.isTerminated()){ //This just checks to see if a process is ready to be terminated
-                    module.terminateProcess(process);
-                }else{
-                    busyQueue.add(process);
+            for(SimProcessor processor: module.getProcessors()) {
+                //These are the actions to swap a process when it has finished processing
+                if (processor.isFinsihedProcessing(time)) {
+                    SimProcess process = processor.removeProcess(time);
+                    if (process.isTerminated()) { //This just checks to see if a process is ready to be terminated
+                        module.terminateProcess(process);
+                    } else {
+                        busyQueue.add(process);
+                    }
                 }
-            }
 
-            //This pulls items out of the busy queue and adds them to the ready queue
-            while(!busyQueue.isEmpty() && busyQueue.peek().getNextRunTime() <= time) {
-                queue.add(busyQueue.poll());
-            }
+                //This pulls items out of the busy queue and adds them to the ready queue
+                while (!busyQueue.isEmpty() && busyQueue.peek().getNextRunTime() <= time) {
+                    queue.add(busyQueue.poll());
+                }
 
-            if(!queue.isEmpty()){
-                //These are the actions to add a process to the processor
-                if(processor.isEmpty() && processor.isAvailable(time)){ //If the processor isn't running anything
-                    processor.runProcess(queue.poll(), time);
+                if (!queue.isEmpty()) {
+                    //These are the actions to add a process to the processor
+                    if (processor.isEmpty() && processor.isAvailable(time)) { //If the processor isn't running anything
+                        processor.runProcess(queue.poll(), time);
+                    }
                 }
             }
 
@@ -79,9 +79,7 @@ public class First implements StrategyInterface {
                 for(SimProcess process: module.getProcesses())
                     module.terminateProcess(process);
                 time = 0;
-                module.clearProcesses();
-                if(!processor.isEmpty())
-                    processor.removeProcess(time);
+                module.reset();
                 while(!queue.isEmpty())
                     queue.poll();
                 while(!busyQueue.isEmpty())

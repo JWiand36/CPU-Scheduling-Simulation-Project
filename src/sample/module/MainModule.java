@@ -10,8 +10,8 @@ public class MainModule {
 
     private ArrayList<SimProcess> processes = new ArrayList<>();
     private ArrayList<SimProcess> terminatedProcesses = new ArrayList<>();
+    private ArrayList<SimProcessor> processors = new ArrayList<>();
 
-    private SimProcessor processor;
     private DisplayController display;
 
     private int maxProcesses = 0;
@@ -93,10 +93,13 @@ public class MainModule {
     }
 
     //Clears the processes lists and resets the availability of the processor
-    public void clearProcesses(){
+    public void reset(){
         processes.clear();
         terminatedProcesses.clear();
-        processor.resetLastRunningTime();
+        for(SimProcessor processor: processors) {
+            processor.resetLastRunningTime();
+            processor.removeProcess(0);
+        }
         this.newArrival = 0;
     }
 
@@ -113,11 +116,15 @@ public class MainModule {
     }
 
     public void createProcessor(){
-        processor = new SimProcessor(display);
+        processors.add(new SimProcessor(display, processors.size()+1));
     }
 
-    public SimProcessor getProcessor() {
-        return processor;
+    public ArrayList<SimProcessor> getProcessors() { return processors; }
+
+    public void editProcessors(int runTime){
+        for(SimProcessor processor: processors){
+            processor.setProcessTime(runTime);
+        }
     }
 
     public int getMaxProcesses(){ return maxProcesses;}

@@ -38,7 +38,7 @@ public class DisplayController {
     public void finishSimulation(ArrayList<SimProcess> processes){
         side.getRunBtn().setText("Run");
         data.displayProcessData(processes);
-        module.clearProcesses();
+        module.reset();
     }
 
     void resetDataDisplay(){ data.reset(); }
@@ -56,6 +56,8 @@ public class DisplayController {
     public String getProcessRate() { return side.getProcessRate(); }
 
     public String getPriorityRate() { return side.getPriorityRate(); }
+
+    public String getProcessors() { return side.getProcessors(); }
 
     public boolean getRandom(){ return side.getRandom(); }
 

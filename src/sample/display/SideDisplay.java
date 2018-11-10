@@ -16,7 +16,8 @@ class SideDisplay extends FlowPane{
     private TextField ioFld = new TextField("5");
     private TextField prosFld = new TextField("5");
     private TextField priFld = new TextField("5");
-    private TextField prsrRunFld = new TextField("2");
+    private TextField rrRunFld = new TextField("2");
+    private TextField amtProsFld = new TextField("1");
     private CheckBox ranBox = new CheckBox();
 
     SideDisplay(Controller controller, DisplayController display){
@@ -36,13 +37,13 @@ class SideDisplay extends FlowPane{
         Label prosLbl = new Label("Process Rate: ");
         Label priLbl = new Label("Priority Rate: ");
         Label ranLbl = new Label("Random");
-        Label rrLbl = new Label("Parameters for Round Robin");
-        Label prsRunLbl = new Label("Processor Run Time");
+        Label rrRunLbl = new Label("Round Robin Time");
+        Label amtProsLbl = new Label("Processors: ");
 
         this.getChildren().add(stratBox);
         this.getChildren().addAll(infoLbl, maxLbl, maxFld, arvLbl, arvFld, cpuLbl, cpuFld);
         this.getChildren().addAll(ioLbl, ioFld, prosLbl, prosFld, priLbl, priFld, ranLbl, ranBox);
-        this.getChildren().addAll(rrLbl, prsRunLbl, prsrRunFld, reset, runBtn);
+        this.getChildren().addAll(amtProsLbl, amtProsFld, rrRunLbl, rrRunFld, reset, runBtn);
 
         this.setMaxWidth(100);
         this.setPadding(new Insets(5));
@@ -79,7 +80,9 @@ class SideDisplay extends FlowPane{
 
     String getPriorityRate(){ return priFld.getText(); }
 
+    String getProcessors(){ return amtProsFld.getText(); }
+
     boolean getRandom(){ return ranBox.isSelected(); }
 
-    String getProcessorRunTime(){ return prsrRunFld.getText(); }
+    String getProcessorRunTime(){ return rrRunFld.getText(); }
 }

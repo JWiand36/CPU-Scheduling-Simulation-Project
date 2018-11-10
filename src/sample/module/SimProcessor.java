@@ -14,8 +14,10 @@ public class SimProcessor {
     private int runningClock = 0;
     private int id = 0;
     private int startRunTime = 0;
+    private boolean running = false;
 
-    public SimProcessor(DisplayController display){
+    public SimProcessor(DisplayController display, int id){
+        this.id = id;
         this.display = display;
     }
 
@@ -42,10 +44,13 @@ public class SimProcessor {
     //The current running process is removed and displayed.
     public SimProcess removeProcess(int time){
         SimProcess temp = runningProcess;
-        Platform.runLater(()-> display.displayProcessorChange(this.id, temp.getName(), time, "Left"));
-        temp.exitProcessor(time);
-        lastRunningTime = time;
-        runningProcess = null;
+        if(temp != null) {
+            Platform.runLater(() -> display.displayProcessorChange(this.id, temp.getName(), time, "Left"));
+            temp.exitProcessor(time);
+            lastRunningTime = time;
+            runningProcess = null;
+            running = false;
+        }
         return temp;
     }
 
@@ -55,6 +60,8 @@ public class SimProcessor {
     public boolean isAvailable(int time){
             return 0 > lastRunningTime || time >= lastRunningTime + contextSwitch;
     }
+
+    public boolean isRunning(){ return running; }
 
     //This is used when a processor allows a certain amount of time.
     public boolean isTimeUp(int time){

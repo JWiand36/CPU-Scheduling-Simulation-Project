@@ -47,8 +47,6 @@ public class SimProcess extends Circle{
         return arrival;
     }
 
-    public int getPriority() { return priority; }
-
     public int getProcessId(){ return id;}
 
     public int getProcessTime() {
@@ -100,7 +98,7 @@ public class SimProcess extends Circle{
     public boolean isTerminated(){ return terminate >= 0; }
 
     //Allows the user to edit the process information
-    public void editProcess(String name, int arrival, int cpu, int io, int process){
+    public void editProcess(String name, int arrival, int cpu, int io, int process, int priority){
         this.name = name;
         this.arrival = arrival;
         this.next = arrival;
@@ -108,6 +106,7 @@ public class SimProcess extends Circle{
         this.requireCpu = cpu;
         this.io = io;
         this.process = process;
+        this.priority = priority;
     }
 
     public String toString(){
@@ -121,4 +120,6 @@ public class SimProcess extends Circle{
                 "\nProcess Time: " + this.initProcess +
                 "\nCompletion Time: " + this.terminate;
     }
+
+    public int getPriority(){ return priority; }
 }

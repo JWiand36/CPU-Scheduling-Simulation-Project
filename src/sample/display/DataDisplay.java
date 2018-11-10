@@ -14,8 +14,7 @@ class DataDisplay extends GridPane {
     private Text time = new Text("Time: ");
 
     DataDisplay(){
-        this.add(time,0,0);
-        this.add(new Text("Processor Activity"),0,1);
+        reset();
 
         this.setPadding(new Insets(5));
         this.setHgap(5);
@@ -25,9 +24,9 @@ class DataDisplay extends GridPane {
     //When a change occurs in the processor, this method displays the info
     void displayChange(int id, String name, int time, String type){
 
-        this.add(new Text(name), position, 1 + 3 * id);
-        this.add(new Text(type), position, 2 + 3 * id);
-        this.add(new Text(time+""), position,  3 + 3 * id);
+        this.add(new Text(name), position, 2 + 3 * id);
+        this.add(new Text(type), position, 3 + 3 * id);
+        this.add(new Text(time+""), position,  4 + 3 * id);
 
         position++;
     }
@@ -35,7 +34,7 @@ class DataDisplay extends GridPane {
     //When a simulation has finished all the processes will display their information
     void displayProcessData(ArrayList<SimProcess> processes){
         for(int i = 0; i < processes.size(); i++){
-            this.add(new Text(processes.get(i).toString()),i*2,4);
+            this.add(new Text(processes.get(i).toString()),i*2,1);
         }
     }
 
@@ -44,7 +43,7 @@ class DataDisplay extends GridPane {
         this.getChildren().clear();
         time.setText("Time: ");
         this.add(time,0,0);
-        this.add(new Text("Processor Activity"),0,1);
+        this.add(new Text("Processor Activity"),0,2);
         position = 2;
     }
 
