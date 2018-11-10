@@ -117,8 +117,7 @@ public class SimProcess extends Circle{
     public boolean isRunning() { return running; }
 
     public String toString(){
-        return "ID: "+this.id +
-                "\nName: " + this.name +
+        return "Name: " + this.name +
                 "\nArrival Time: " + this.arrival +
                 "\nWait Time: " + this.wait +
                 "\nCPU Time: " + this.cpu +

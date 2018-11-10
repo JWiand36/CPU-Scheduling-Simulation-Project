@@ -45,7 +45,7 @@ public class Controller {
         thread.start();
     }
 
-    public void pauseSimulation(){
+    public void stopSimulation(){
         //The if prevents a bug when the user closes the system. If the stop button is pushed and the user closes the
         //program it will cause a NullPointerException.
         if(thread != null)

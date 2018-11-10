@@ -29,7 +29,7 @@ class SideDisplay extends FlowPane{
         stratBox.setValue(strats[0]);
         stratBox.getItems().addAll(FXCollections.observableArrayList(strats));
 
-        Label infoLbl = new Label("Parameters for Random Simulations");
+        Label infoLbl = new Label("Random Simulations");
         Label maxLbl = new Label("Max Processes: ");
         Label arvLbl = new Label("Arrival Rate: ");
         Label cpuLbl = new Label("CPU Rate: ");
@@ -40,13 +40,23 @@ class SideDisplay extends FlowPane{
         Label rrRunLbl = new Label("Round Robin Time");
         Label amtProsLbl = new Label("Processors: ");
 
+        stratBox.setPrefWidth(100);
+        maxFld.setPrefWidth(100);
+        arvFld.setPrefWidth(100);
+        cpuFld.setPrefWidth(100);
+        ioFld.setPrefWidth(100);
+        prosFld.setPrefWidth(100);
+        priFld.setPrefWidth(100);
+        rrRunFld.setPrefWidth(100);
+        amtProsFld.setPrefWidth(100);
+
         this.getChildren().add(stratBox);
         this.getChildren().addAll(infoLbl, maxLbl, maxFld, arvLbl, arvFld, cpuLbl, cpuFld);
         this.getChildren().addAll(ioLbl, ioFld, prosLbl, prosFld, priLbl, priFld, ranLbl, ranBox);
         this.getChildren().addAll(amtProsLbl, amtProsFld, rrRunLbl, rrRunFld, reset, runBtn);
 
-        this.setMaxWidth(100);
         this.setPadding(new Insets(5));
+        this.setMaxWidth(125);
         this.setHgap(5);
         this.setVgap(5);
 
@@ -56,7 +66,7 @@ class SideDisplay extends FlowPane{
                 controller.runSimulation();
                 runBtn.setText("Stop");
             }else{
-                controller.pauseSimulation();
+                controller.stopSimulation();
                 runBtn.setText("Run");
             }
         });

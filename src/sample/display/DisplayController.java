@@ -11,27 +11,48 @@ import java.util.ArrayList;
 public class DisplayController {
 
     private SideDisplay side;
-    private EditorDisplay edit;
+    private ProcessEditorDisplay process;
+    private ProcessorEditorDisplay processor;
     private MainDisplay main;
     private NavDisplay nav;
+    private ChartDataDisplay chart;
     private DataDisplay data = new DataDisplay();
     private MainModule module;
+    private BorderPane primary;
 
     public DisplayController(Controller controller, BorderPane primary, MainModule module){
 
+        this.primary = primary;
         this.side = new SideDisplay(controller, this);
-        this.edit = new EditorDisplay(controller);
+        this.process = new ProcessEditorDisplay(controller);
+        this.processor = new ProcessorEditorDisplay(controller);
         this.main = new MainDisplay(controller);
         this.nav = new NavDisplay(controller);
+        this.chart = new ChartDataDisplay(controller);
         this.module = module;
 
-        primary.setLeft(side);
-        primary.setCenter(new ScrollPane(data));
+        ScrollPane sideScroll = new ScrollPane(side);
+        sideScroll.setMinWidth(150);
+        sideScroll.setMaxWidth(150);
+
+        ScrollPane dataScroll = new ScrollPane(data);
+        dataScroll.setMinWidth(150);
+        dataScroll.setMaxWidth(150);
+
+        ScrollPane chartScroll = new ScrollPane(chart);
+        chartScroll.setMinHeight(150);
+        chartScroll.setMaxHeight(150);
+
+        primary.setTop(nav);
+        primary.setLeft(sideScroll);
+        primary.setRight(dataScroll);
+        primary.setBottom(chartScroll);
+        setMainPane();
 
     }
 
     public void displayProcessorChange(int processorId, String processName, int time, String type){
-        this.data.displayChange(processorId, processName, time, type);
+        this.chart.displayChange(processorId, processName, time, type);
     }
 
     //When a simulation completes it displays the data and resets the processes and run button
@@ -41,7 +62,16 @@ public class DisplayController {
         module.reset();
     }
 
-    void resetDataDisplay(){ data.reset(); }
+    void resetDataDisplay(){
+        data.reset();
+        chart.reset();
+    }
+
+    void setMainPane(){ primary.setCenter(new ScrollPane(main)); }
+
+    void setProcessPane() { primary.setCenter(new ScrollPane(process)); }
+
+    void setProcessorPane() { primary.setCenter(new ScrollPane(processor)); }
 
     public String getStrategy(){ return side.getStrategy(); }
 

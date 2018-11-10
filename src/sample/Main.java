@@ -17,13 +17,13 @@ public class Main extends Application {
         controller = new Controller(border);
 
         primaryStage.setTitle("CPU Scheduler Sim");
-        primaryStage.setScene(new Scene(border, 800, 475));
+        primaryStage.setScene(new Scene(border, 900, 650));
         primaryStage.show();
     }
 
     @Override
     public void stop(){
-        controller.pauseSimulation();
+        controller.stopSimulation();
     }
 
     public static void main(String[] args) { launch(args); }
