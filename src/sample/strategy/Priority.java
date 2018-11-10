@@ -64,14 +64,16 @@ public class Priority implements StrategyInterface {
 
                 if (!queue.isEmpty()) {
                     //These are the actions to add a process to the processor
-                    if (processor.isEmpty() && processor.isAvailable(time)) { //If the processor isn't running anything
-                        processor.runProcess(queue.poll(), time);
-                    } else if (!processor.isEmpty() && queue.peek().getPriority() < processor.getPriority()) {
+                    if (processor.isEmpty()) { //If the processor isn't running anything
+                        processor.addProcess(queue.poll(), time);
+                    } else if (queue.peek().getPriority() < processor.getPriority()) {
                         busyQueue.add(processor.removeProcess(time));
-                        if (processor.isAvailable(time))
-                            processor.runProcess(queue.poll(), time);
+                        processor.addProcess(queue.poll(), time);
                     }
                 }
+
+                if (!processor.isEmpty() && processor.isAvailable(time) && !processor.isRunning())
+                    processor.runProcess(time);
             }
 
             time++;

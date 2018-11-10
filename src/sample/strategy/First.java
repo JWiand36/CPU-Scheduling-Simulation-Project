@@ -63,10 +63,13 @@ public class First implements StrategyInterface {
 
                 if (!queue.isEmpty()) {
                     //These are the actions to add a process to the processor
-                    if (processor.isEmpty() && processor.isAvailable(time)) { //If the processor isn't running anything
-                        processor.runProcess(queue.poll(), time);
-                    }
+                    if(processor.isEmpty())
+                        processor.addProcess(queue.poll(), time);
                 }
+
+                //If the processor has completed its context switch run
+                if (!processor.isEmpty() && processor.isAvailable(time) && !processor.isRunning())
+                    processor.runProcess(time);
             }
 
             time++;

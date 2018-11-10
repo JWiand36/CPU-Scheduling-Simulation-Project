@@ -13,8 +13,8 @@ public class SimProcessor {
     private int processTime = 0;
     private int runningClock = 0;
     private int id = 0;
-    private int startRunTime = 0;
     private boolean running = false;
+    private boolean firstTime = true;
 
     public SimProcessor(DisplayController display, int id){
         this.id = id;
@@ -29,16 +29,28 @@ public class SimProcessor {
         this.runningClock = time;
     }
 
+    public void addProcess(SimProcess process, int time) {
+        runningProcess = process;
+        //These values are calculated here because then they will run when a process is added. The first time running
+        //the context switch shouldn't be calculated. This helps make sure the process doesn't get removed before giving
+        //the chance to run.
+        if (firstTime) {
+            runTimeNeeded = runningProcess.getTimeNeeded() + time;
+            runningClock = time + processTime;
+        }else {
+            runTimeNeeded = runningProcess.getTimeNeeded() + time + contextSwitch;
+            runningClock = time + processTime + contextSwitch;
+        }
+    }
+
     //A new process is added to the processor. The time when a process starts iss displayed and the logic used to know when
     //a process's time is up. runTimeNeeded helps determine when a process has finished it's cpu burst if it is lower then
     //the time allowed.
-    public void runProcess(SimProcess process, int time){
-        Platform.runLater(()->display.displayProcessorChange(this.id, process.getName(), time, "Entered"));
-        process.enterProcessor(time);
-        runTimeNeeded = process.getTimeNeeded() + time;
-        this.runningProcess = process;
-        runningClock = time + processTime;
-        startRunTime = time;
+    public void runProcess(int time){
+        Platform.runLater(()->display.displayProcessorChange(this.id, runningProcess.getName(), time, "Entered"));
+        runningProcess.enterProcessor(time);
+        running = true;
+        firstTime = false;
     }
 
     //The current running process is removed and displayed.
@@ -49,8 +61,8 @@ public class SimProcessor {
             temp.exitProcessor(time);
             lastRunningTime = time;
             runningProcess = null;
-            running = false;
         }
+        running = false;
         return temp;
     }
 
