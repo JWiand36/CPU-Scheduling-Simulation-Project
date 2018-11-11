@@ -32,5 +32,6 @@ class ChartDataDisplay extends GridPane {
     void reset(){
         this.getChildren().clear();
         this.add(new Text("Processor Activity"),0,0);
+        position = 1;
     }
 }
