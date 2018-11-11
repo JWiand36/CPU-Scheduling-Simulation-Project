@@ -1,12 +1,16 @@
 package sample;
 
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import sample.display.DisplayController;
 import sample.module.MainModule;
+import sample.module.SimProcess;
 import sample.strategy.First;
 import sample.strategy.Priority;
 import sample.strategy.RoundRobin;
 import sample.strategy.Shortest;
+
+import java.util.ArrayList;
 
 public class Controller {
 
@@ -37,7 +41,7 @@ public class Controller {
     public void runSimulation(){
         //This allows the user to retrieve data from a file if they don't wish to use a random simulation.
         if(!display.getRandom()){
-            getIOData();
+            setProcesses();
         }
         //Adjusts the settings and the strategy selected.
         setSettings();
@@ -103,6 +107,29 @@ public class Controller {
 
     }
 
+    public void setProcesses(){
+        ArrayList<TextField> names = display.getNames();
+        ArrayList<TextField> arrivals = display.getArrivals();
+        ArrayList<TextField> cpus = display.getCpus();
+        ArrayList<TextField> ios = display.getIos();
+        ArrayList<TextField> processTimes = display.getProcessTimes();
+        ArrayList<TextField> priorities = display.getPriorities();
+
+        for(int i = 0; i < names.size(); i++){
+            if(isNumber(arrivals.get(i).getText()) || isNumber(cpus.get(i).getText()) ||
+                    isNumber(ios.get(i).getText()) || isNumber((processTimes.get(i).getText())) ||
+                    isNumber(priorities.get(i).getText())){
+                String name = names.get(i).getText();
+                int arrival = Integer.parseInt(arrivals.get(i).getText());
+                int cpu = Integer.parseInt(cpus.get(i).getText());
+                int io = Integer.parseInt(ios.get(i).getText());
+                int process = Integer.parseInt(processTimes.get(i).getText());
+                int priority = Integer.parseInt(priorities.get(i).getText());
+                module.addProcess(name, arrival, cpu, io, process, priority);
+            }
+        }
+    }
+
     public void editProcessors(int runTime){ module.editProcessors(runTime); }
 
     public void getIOData(){ io.inputData(); }
@@ -110,7 +137,7 @@ public class Controller {
     public void saveDataIO(){}
 
     //Checks to make sure the Strings provided are actually numbers.
-    private boolean isNumber(String s){
+    public boolean isNumber(String s){
 
         char a;
         int c = 0;

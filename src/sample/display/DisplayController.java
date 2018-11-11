@@ -1,6 +1,7 @@
 package sample.display;
 
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import sample.Controller;
 import sample.module.MainModule;
@@ -20,6 +21,8 @@ public class DisplayController {
     private MainModule module;
     private BorderPane primary;
 
+    private Controller controller;
+
     public DisplayController(Controller controller, BorderPane primary, MainModule module){
 
         this.primary = primary;
@@ -30,6 +33,7 @@ public class DisplayController {
         this.nav = new NavDisplay(controller, this);
         this.chart = new ChartDataDisplay(controller);
         this.module = module;
+        this.controller = controller;
 
         ScrollPane sideScroll = new ScrollPane(side);
         sideScroll.setMinWidth(150);
@@ -73,9 +77,9 @@ public class DisplayController {
 
     void setProcessorPane() { primary.setCenter(new ScrollPane(processor)); }
 
-    public void displayManual(){ process.displayManual(); }
+    void displayManual(){ process.displayManual(); }
 
-    public void displayRandom(){ process.displayRandom(); }
+    void displayRandom(){ process.displayRandom(); }
 
     public String getStrategy(){ return side.getStrategy(); }
 
@@ -98,4 +102,16 @@ public class DisplayController {
     public String getProcessorRunTime(){ return side.getProcessorRunTime(); }
 
     public void updateTime(int time){ data.updateTime(time);}
+
+    public ArrayList<TextField> getNames() { return process.getNames(); }
+
+    public ArrayList<TextField> getArrivals() { return process.getArrivals(); }
+
+    public ArrayList<TextField> getCpus() { return process.getCpus(); }
+
+    public ArrayList<TextField> getIos() { return process.getIos(); }
+
+    public ArrayList<TextField> getProcessTimes() { return process.getProcessTimes(); }
+
+    public ArrayList<TextField> getPriorities() { return process.getPriorities(); }
 }

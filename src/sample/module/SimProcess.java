@@ -48,6 +48,12 @@ public class SimProcess extends Circle{
         return arrival;
     }
 
+    public int getCpuTime(){ return cpu; }
+
+    public int getIoTime(){ return io; }
+
+    public int getInitProcessTime(){ return initProcess; }
+
     public int getProcessId(){ return id;}
 
     public int getProcessTime() {

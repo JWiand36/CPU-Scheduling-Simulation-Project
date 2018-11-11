@@ -6,11 +6,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class IO {
+class IO {
 
-    MainModule module;
+    private MainModule module;
 
-    public IO(MainModule module){
+    IO(MainModule module){
 
         this.module = module;
     }

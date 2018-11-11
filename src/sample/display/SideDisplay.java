@@ -51,10 +51,11 @@ class SideDisplay extends FlowPane{
         });
 
         ranBox.setOnAction(e->{
-            if(ranBox.isSelected())
+            if(ranBox.isSelected()) {
                 display.displayRandom();
-            else
+            }else {
                 display.displayManual();
+            }
         });
 
         reset.setOnAction(e-> display.resetDataDisplay());
