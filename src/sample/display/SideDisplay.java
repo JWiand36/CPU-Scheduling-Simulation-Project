@@ -10,12 +10,6 @@ class SideDisplay extends FlowPane{
 
     private Button runBtn = new Button("Run");
     private ComboBox<String> stratBox = new ComboBox<>();
-    private TextField maxFld = new TextField("5");
-    private TextField arvFld = new TextField("5");
-    private TextField cpuFld = new TextField("5");
-    private TextField ioFld = new TextField("5");
-    private TextField prosFld = new TextField("5");
-    private TextField priFld = new TextField("5");
     private TextField rrRunFld = new TextField("2");
     private TextField amtProsFld = new TextField("1");
     private CheckBox ranBox = new CheckBox();
@@ -29,30 +23,15 @@ class SideDisplay extends FlowPane{
         stratBox.setValue(strats[0]);
         stratBox.getItems().addAll(FXCollections.observableArrayList(strats));
 
-        Label infoLbl = new Label("Random Simulations");
-        Label maxLbl = new Label("Max Processes: ");
-        Label arvLbl = new Label("Arrival Rate: ");
-        Label cpuLbl = new Label("CPU Rate: ");
-        Label ioLbl = new Label("IO Rate: ");
-        Label prosLbl = new Label("Process Rate: ");
-        Label priLbl = new Label("Priority Rate: ");
         Label ranLbl = new Label("Random");
         Label rrRunLbl = new Label("Round Robin Time");
         Label amtProsLbl = new Label("Processors: ");
 
         stratBox.setPrefWidth(100);
-        maxFld.setPrefWidth(100);
-        arvFld.setPrefWidth(100);
-        cpuFld.setPrefWidth(100);
-        ioFld.setPrefWidth(100);
-        prosFld.setPrefWidth(100);
-        priFld.setPrefWidth(100);
         rrRunFld.setPrefWidth(100);
         amtProsFld.setPrefWidth(100);
 
-        this.getChildren().add(stratBox);
-        this.getChildren().addAll(infoLbl, maxLbl, maxFld, arvLbl, arvFld, cpuLbl, cpuFld);
-        this.getChildren().addAll(ioLbl, ioFld, prosLbl, prosFld, priLbl, priFld, ranLbl, ranBox);
+        this.getChildren().addAll(stratBox, ranLbl, ranBox);
         this.getChildren().addAll(amtProsLbl, amtProsFld, rrRunLbl, rrRunFld, reset, runBtn);
 
         this.setPadding(new Insets(5));
@@ -71,24 +50,19 @@ class SideDisplay extends FlowPane{
             }
         });
 
+        ranBox.setOnAction(e->{
+            if(ranBox.isSelected())
+                display.displayRandom();
+            else
+                display.displayManual();
+        });
+
         reset.setOnAction(e-> display.resetDataDisplay());
     }
 
     Button getRunBtn(){ return runBtn; }
 
     String getStrategy(){ return stratBox.getSelectionModel().getSelectedItem();}
-
-    String getMax() { return maxFld.getText(); }
-
-    String getArvRate() { return arvFld.getText(); }
-
-    String getCpuRate() { return cpuFld.getText(); }
-
-    String getIoRate() { return ioFld.getText(); }
-
-    String getProcessRate() { return prosFld.getText(); }
-
-    String getPriorityRate(){ return priFld.getText(); }
 
     String getProcessors(){ return amtProsFld.getText(); }
 

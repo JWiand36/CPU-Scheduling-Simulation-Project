@@ -27,7 +27,7 @@ public class DisplayController {
         this.process = new ProcessEditorDisplay(controller);
         this.processor = new ProcessorEditorDisplay(controller);
         this.main = new MainDisplay(controller);
-        this.nav = new NavDisplay(controller);
+        this.nav = new NavDisplay(controller, this);
         this.chart = new ChartDataDisplay(controller);
         this.module = module;
 
@@ -73,19 +73,23 @@ public class DisplayController {
 
     void setProcessorPane() { primary.setCenter(new ScrollPane(processor)); }
 
+    public void displayManual(){ process.displayManual(); }
+
+    public void displayRandom(){ process.displayRandom(); }
+
     public String getStrategy(){ return side.getStrategy(); }
 
-    public String getMax() { return side.getMax(); }
+    public String getMax() { return process.getMax(); }
 
-    public String getArvRate() { return side.getArvRate(); }
+    public String getArvRate() { return process.getArvRate(); }
 
-    public String getCpuRate() { return side.getCpuRate(); }
+    public String getCpuRate() { return process.getCpuRate(); }
 
-    public String getIoRate() { return side.getIoRate(); }
+    public String getIoRate() { return process.getIoRate(); }
 
-    public String getProcessRate() { return side.getProcessRate(); }
+    public String getProcessRate() { return process.getProcessRate(); }
 
-    public String getPriorityRate() { return side.getPriorityRate(); }
+    public String getPriorityRate() { return process.getPriorityRate(); }
 
     public String getProcessors() { return side.getProcessors(); }
 

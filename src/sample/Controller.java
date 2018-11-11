@@ -105,7 +105,9 @@ public class Controller {
 
     public void editProcessors(int runTime){ module.editProcessors(runTime); }
 
-    private void getIOData(){ io.inputData(); }
+    public void getIOData(){ io.inputData(); }
+
+    public void saveDataIO(){}
 
     //Checks to make sure the Strings provided are actually numbers.
     private boolean isNumber(String s){

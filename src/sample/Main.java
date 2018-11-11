@@ -17,7 +17,7 @@ public class Main extends Application {
         controller = new Controller(border);
 
         primaryStage.setTitle("CPU Scheduler Sim");
-        primaryStage.setScene(new Scene(border, 900, 650));
+        primaryStage.setScene(new Scene(border, 1060, 650));
         primaryStage.show();
     }
 
