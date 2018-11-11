@@ -83,11 +83,8 @@ public class Controller {
         int run = 1;
         int proc = 1;
 
-        //Checks to make sure everything is a number, otherwise use the values above.
-        if(isNumber(display.getMax()) || isNumber(display.getArvRate()) ||
-                isNumber(display.getCpuRate()) || isNumber(display.getIoRate()) ||
-                isNumber(display.getProcessRate()) || isNumber(display.getProcessorRunTime()) ||
-                isNumber(display.getProcessorRunTime()) || isNumber(display.getProcessors())){
+        try {
+            //Checks to make sure everything is a number, otherwise use the values above.
             max = Integer.parseInt(display.getMax());
             arv = Integer.parseInt(display.getArvRate());
             cpu = Integer.parseInt(display.getCpuRate());
@@ -96,7 +93,7 @@ public class Controller {
             pri = Integer.parseInt(display.getPriorityRate());
             run = Integer.parseInt(display.getProcessorRunTime());
             proc = Integer.parseInt(display.getProcessors());
-        }
+        }catch (NumberFormatException e){ display.displayError();}
 
         module.editSettings(max, arv, cpu, io, pros, pri, display.getRandom());
 
@@ -116,9 +113,8 @@ public class Controller {
         ArrayList<TextField> priorities = display.getPriorities();
 
         for(int i = 0; i < names.size(); i++){
-            if(isNumber(arrivals.get(i).getText()) || isNumber(cpus.get(i).getText()) ||
-                    isNumber(ios.get(i).getText()) || isNumber((processTimes.get(i).getText())) ||
-                    isNumber(priorities.get(i).getText())){
+
+            try{
                 String name = names.get(i).getText();
                 int arrival = Integer.parseInt(arrivals.get(i).getText());
                 int cpu = Integer.parseInt(cpus.get(i).getText());
@@ -126,7 +122,7 @@ public class Controller {
                 int process = Integer.parseInt(processTimes.get(i).getText());
                 int priority = Integer.parseInt(priorities.get(i).getText());
                 module.addProcess(name, arrival, cpu, io, process, priority);
-            }
+            }catch (NumberFormatException e){ display.displayError(); }
         }
     }
 
@@ -135,21 +131,4 @@ public class Controller {
     public void getIOData(){ io.inputData(); }
 
     public void saveDataIO(){}
-
-    //Checks to make sure the Strings provided are actually numbers.
-    public boolean isNumber(String s){
-
-        char a;
-        int c = 0;
-
-        for(int i = 0; i < s.length(); i++){
-
-            a = s.charAt(i);
-
-            if(!Character.isDigit(a))
-                c++;
-        }
-
-        return c <= 0 && s.length() != 0;
-    }
 }

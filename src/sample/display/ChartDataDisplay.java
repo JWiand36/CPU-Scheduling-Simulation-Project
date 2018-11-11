@@ -3,13 +3,12 @@ package sample.display;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import sample.Controller;
 
 class ChartDataDisplay extends GridPane {
 
     private int position = 1;
 
-    ChartDataDisplay(Controller controller){
+    ChartDataDisplay(){
         reset();
 
         this.setPadding(new Insets(5));

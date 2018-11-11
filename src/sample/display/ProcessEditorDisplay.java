@@ -41,8 +41,13 @@ class ProcessEditorDisplay extends GridPane{
     private Label processingLbl = new Label("Processing");
     private Label priorityLbl = new Label("Priority");
 
+    private DisplayController display;
 
-    ProcessEditorDisplay (Controller controller){
+
+    ProcessEditorDisplay (DisplayController display){
+
+        this.display = display;
+
         ColumnConstraints[] cols = new ColumnConstraints[7];
 
         displayManual();
@@ -60,7 +65,7 @@ class ProcessEditorDisplay extends GridPane{
 
         maxFld.setOnAction(e->{
 
-            if(controller.isNumber(maxFld.getText())) {
+            try{
                 int max = Integer.parseInt(maxFld.getText());
 
                 while(names.size() < max){
@@ -80,8 +85,12 @@ class ProcessEditorDisplay extends GridPane{
                     processTimes.remove(processTimes.size()-1);
                     priorities.remove(priorities.size()-1);
                 }
-                displayManual();
-            }
+
+                if(!display.getRandom())
+                    displayManual();
+                else
+                    displayRandom();
+            }catch (NumberFormatException n){ display.displayError();}
         });
 
         infoLbl.setWrapText(true);

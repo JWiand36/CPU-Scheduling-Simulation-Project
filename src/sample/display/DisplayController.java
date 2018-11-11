@@ -1,8 +1,13 @@
 package sample.display;
 
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import sample.Controller;
 import sample.module.MainModule;
 import sample.module.SimProcess;
@@ -21,19 +26,27 @@ public class DisplayController {
     private MainModule module;
     private BorderPane primary;
 
+    private Stage secondStage;
+
     private Controller controller;
 
     public DisplayController(Controller controller, BorderPane primary, MainModule module){
 
         this.primary = primary;
         this.side = new SideDisplay(controller, this);
-        this.process = new ProcessEditorDisplay(controller);
+        this.process = new ProcessEditorDisplay(this);
         this.processor = new ProcessorEditorDisplay(controller);
         this.main = new MainDisplay(controller);
         this.nav = new NavDisplay(controller, this);
-        this.chart = new ChartDataDisplay(controller);
+        this.chart = new ChartDataDisplay();
         this.module = module;
         this.controller = controller;
+
+        FlowPane pane = new FlowPane();
+        pane.getChildren().add(new Text("Number Format Error: Make sure you input values are numbers!"));
+        pane.setPadding(new Insets(5));
+        this.secondStage = new Stage();
+        this.secondStage.setScene(new Scene(pane,350,50));
 
         ScrollPane sideScroll = new ScrollPane(side);
         sideScroll.setMinWidth(150);
@@ -114,4 +127,6 @@ public class DisplayController {
     public ArrayList<TextField> getProcessTimes() { return process.getProcessTimes(); }
 
     public ArrayList<TextField> getPriorities() { return process.getPriorities(); }
+
+    public void displayError(){ secondStage.show(); }
 }
