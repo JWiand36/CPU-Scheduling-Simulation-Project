@@ -108,18 +108,6 @@ public class SimProcess extends Circle{
 
     public boolean isTerminated(){ return terminate >= 0; }
 
-    //Allows the user to edit the process information
-    public void editProcess(String name, int arrival, int cpu, int io, int process, int priority){
-        this.name = name;
-        this.arrival = arrival;
-        this.next = arrival;
-        this.cpu = cpu;
-        this.requireCpu = cpu;
-        this.io = io;
-        this.process = process;
-        this.priority = priority;
-    }
-
     public boolean isRunning() { return running; }
 
     public String toString(){

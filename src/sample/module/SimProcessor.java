@@ -29,16 +29,6 @@ public class SimProcessor {
 
     public void addProcess(SimProcess process, int time) {
         runningProcess = process;
-        //These values are calculated here because then they will run when a process is added. The first time running
-        //the context switch shouldn't be calculated. This helps make sure the process doesn't get removed before giving
-        //the chance to run.
-        if (firstTime) {
-            runTimeNeeded = runningProcess.getTimeNeeded() + time;
-            runningClock = time + processTime;
-        }else {
-            runTimeNeeded = runningProcess.getTimeNeeded() + time + contextSwitch;
-            runningClock = time + processTime + contextSwitch;
-        }
     }
 
     //A new process is added to the processor. The time when a process starts iss displayed and the logic used to know when
@@ -47,20 +37,26 @@ public class SimProcessor {
     public void runProcess(int time){
         Platform.runLater(()->display.displayProcessorChange(this.id, runningProcess.getName(), time, "Entered"));
         runningProcess.enterProcessor(time);
+        runTimeNeeded = runningProcess.getTimeNeeded() + time;
+        runningClock = time + processTime;
         running = true;
         firstTime = false;
     }
 
     //The current running process is removed and displayed.
     public SimProcess removeProcess(int time){
+
         SimProcess temp = runningProcess;
-        if(temp != null) {
-            Platform.runLater(() -> display.displayProcessorChange(this.id, temp.getName(), time, "Left"));
-            temp.exitProcessor(time);
-            lastRunningTime = time;
-            runningProcess = null;
+
+        if(running) {
+            if (temp != null) {
+                Platform.runLater(() -> display.displayProcessorChange(this.id, temp.getName(), time, "Left"));
+                temp.exitProcessor(time);
+                lastRunningTime = time;
+                runningProcess = null;
+            }
+            running = false;
         }
-        running = false;
         return temp;
     }
 

@@ -22,6 +22,7 @@ class SideDisplay extends FlowPane{
         Label ranLbl = new Label("Random");
 
         stratBox.setPrefWidth(100);
+        runBtn.setPrefWidth(100);
 
         this.getChildren().addAll(stratBox, ranLbl, ranBox, runBtn);
 

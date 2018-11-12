@@ -50,8 +50,7 @@ public class RoundRobin implements StrategyInterface {
 
                 counter = 0;
                 //These are the actions to add a process to the processor
-                while (processor.isEmpty() && counter < module.getMaxProcesses() - 1) {
-
+                while (processor.isEmpty() && counter < module.getMaxProcesses()) {
                     SimProcess process = null;
                     int highestID = 0;
 
@@ -71,8 +70,8 @@ public class RoundRobin implements StrategyInterface {
                                 !module.getProcesses().get(i).isRunning())
                             process = module.getProcesses().get(i);
                     }
-
                     if (process != null) {
+                        System.out.println("Enter: "+time);
                         processor.addProcess(process, time);
                         lastRunningProcess = process.getProcessId();
                     } else
