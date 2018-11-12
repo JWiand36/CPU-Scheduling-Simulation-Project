@@ -46,6 +46,7 @@ public class Controller {
         //Adjusts the settings and the strategy selected.
         setSettings();
         setStrategy();
+        setProcessors();
         thread.start();
     }
 
@@ -80,8 +81,6 @@ public class Controller {
         int io = 5;
         int pros = 5;
         int pri = 5;
-        int run = 1;
-        int proc = 1;
 
         try {
             //Checks to make sure everything is a number, otherwise use the values above.
@@ -91,17 +90,9 @@ public class Controller {
             io = Integer.parseInt(display.getIoRate());
             pros = Integer.parseInt(display.getProcessRate());
             pri = Integer.parseInt(display.getPriorityRate());
-            run = Integer.parseInt(display.getProcessorRunTime());
-            proc = Integer.parseInt(display.getProcessors());
         }catch (NumberFormatException e){ display.displayError();}
 
         module.editSettings(max, arv, cpu, io, pros, pri, display.getRandom());
-
-        for(int i = 0; i < proc; i++)
-            module.createProcessor();
-
-        editProcessors(run);
-
     }
 
     public void setProcesses(){
@@ -126,7 +117,27 @@ public class Controller {
         }
     }
 
-    public void editProcessors(int runTime){ module.editProcessors(runTime); }
+    public void setProcessors(){
+
+        ArrayList<TextField> runTimes = display.getRunTimes();
+
+        for (int i = 0; i < runTimes.size(); i++) {
+            try {
+                int runTime = Integer.parseInt(display.getRunTimes().get(i).getText());
+                int context = Integer.parseInt(display.getContexts().get(i).getText());
+
+                module.createProcessor(runTime, context);
+
+            }catch(NumberFormatException n){
+                display.displayError();
+            }
+        }
+
+        if(module.isProcessorsEmpty()){
+            module.createProcessor(2,0);
+        }
+
+    }
 
     public void getIOData(){ io.inputData(); }
 

@@ -10,24 +10,22 @@ public class SimProcessor {
     private int lastRunningTime = -1;
     private int runTimeNeeded = 0;
     private int contextSwitch = 0;
+
+    //The processTime is how much time a process is given to run. The runningClock helps determine if the time is up
+    //This is used for the Round Robin strategy.
     private int processTime = 0;
     private int runningClock = 0;
     private int id = 0;
     private boolean running = false;
     private boolean firstTime = true;
 
-    public SimProcessor(DisplayController display, int id){
+    public SimProcessor(DisplayController display, int id, int runTime, int contextSwitch){
         this.id = id;
         this.display = display;
+        this.contextSwitch = contextSwitch;
+        this.processTime = runTime;
     }
 
-    public void setContextSwitch(int value){ this.contextSwitch = value; }
-
-    //The processTime is how much time a process is given to run. The runningClock helps determine if the time is up
-    public void setProcessTime(int time){
-        this.processTime = time;
-        this.runningClock = time;
-    }
 
     public void addProcess(SimProcess process, int time) {
         runningProcess = process;

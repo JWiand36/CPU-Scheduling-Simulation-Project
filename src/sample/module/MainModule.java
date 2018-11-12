@@ -112,19 +112,15 @@ public class MainModule {
         Platform.runLater(()->display.finishSimulation(terminatedProcesses));
     }
 
-    public void createProcessor(){
-        processors.add(new SimProcessor(display, processors.size()+1));
+    public void createProcessor(int runTime, int context){
+        processors.add(new SimProcessor(display, processors.size()+1, runTime, context));
     }
 
     public ArrayList<SimProcessor> getProcessors() { return processors; }
 
-    public void editProcessors(int runTime){
-        for(SimProcessor processor: processors){
-            processor.setProcessTime(runTime);
-        }
-    }
-
     public int getMaxProcesses(){ return maxProcesses;}
 
     public int getNextArrival(){ return newArrival; }
+
+    public boolean isProcessorsEmpty(){ return processors.isEmpty(); }
 }

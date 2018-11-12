@@ -20,7 +20,6 @@ public class DisplayController {
     private ProcessEditorDisplay process;
     private ProcessorEditorDisplay processor;
     private MainDisplay main;
-    private NavDisplay nav;
     private ChartDataDisplay chart;
     private DataDisplay data = new DataDisplay();
     private MainModule module;
@@ -35,12 +34,13 @@ public class DisplayController {
         this.primary = primary;
         this.side = new SideDisplay(controller, this);
         this.process = new ProcessEditorDisplay(this);
-        this.processor = new ProcessorEditorDisplay(controller);
+        this.processor = new ProcessorEditorDisplay(this);
         this.main = new MainDisplay(controller);
-        this.nav = new NavDisplay(controller, this);
         this.chart = new ChartDataDisplay();
         this.module = module;
         this.controller = controller;
+
+        NavDisplay nav = new NavDisplay(controller, this);
 
         FlowPane pane = new FlowPane();
         pane.getChildren().add(new Text("Number Format Error: Make sure you input values are numbers!"));
@@ -108,11 +108,7 @@ public class DisplayController {
 
     public String getPriorityRate() { return process.getPriorityRate(); }
 
-    public String getProcessors() { return side.getProcessors(); }
-
     public boolean getRandom(){ return side.getRandom(); }
-
-    public String getProcessorRunTime(){ return side.getProcessorRunTime(); }
 
     public void updateTime(int time){ data.updateTime(time);}
 
@@ -127,6 +123,12 @@ public class DisplayController {
     public ArrayList<TextField> getProcessTimes() { return process.getProcessTimes(); }
 
     public ArrayList<TextField> getPriorities() { return process.getPriorities(); }
+
+    public ArrayList<TextField> getRunTimes() { return processor.getRunTimes(); }
+
+    public ArrayList<TextField> getContexts() { return processor.getContexts(); }
+
+    public String getMaxProcessors(){ return processor.getMaxProcessors(); }
 
     public void displayError(){ secondStage.show(); }
 }

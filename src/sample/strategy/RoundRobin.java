@@ -43,7 +43,6 @@ public class RoundRobin implements StrategyInterface {
                 //These are the actions to swap a process when it has finished processing
                 if (processor.isFinsihedProcessing(time) || processor.isTimeUp(time)) {
                     SimProcess process = processor.removeProcess(time);
-                    System.out.println("Removed " + processor.isAvailable(time));
                     if (process.isTerminated()) { //This just checks to see if a process is ready to be terminated
                         module.terminateProcess(process);
                     }
@@ -75,14 +74,13 @@ public class RoundRobin implements StrategyInterface {
 
                     if (process != null) {
                         processor.addProcess(process, time);
-                        System.out.println("Entered");
                         lastRunningProcess = process.getProcessId();
                     } else
                         counter++;
                 }
 
-                if(!processor.isEmpty() && processor.isAvailable(time) && !processor.isRunning()){
-                    processor.runProcess(time);System.out.println("Running");}
+                if(!processor.isEmpty() && processor.isAvailable(time) && !processor.isRunning())
+                    processor.runProcess(time);
 
             }
 
