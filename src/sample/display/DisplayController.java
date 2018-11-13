@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import sample.Controller;
 import sample.module.MainModule;
 import sample.module.SimProcess;
-import sample.module.SimProcessor;
 
 import java.util.ArrayList;
 
@@ -88,6 +87,11 @@ public class DisplayController {
         main.reset();
     }
 
+    void resetData(){
+        process.reset();
+        processor.reset();
+    }
+
     void setMainPane(){ primary.setCenter(new ScrollPane(main)); }
 
     void setProcessPane() { primary.setCenter(new ScrollPane(process)); }
@@ -119,6 +123,8 @@ public class DisplayController {
     public String getSpeed() { return side.getSpeed(); }
 
     public boolean getRandom(){ return side.getRandom(); }
+
+    public void setProcesses(ArrayList<SimProcess> processes) { process.setProcesses(processes); }
 
     public ArrayList<TextField> getNames() { return process.getNames(); }
 

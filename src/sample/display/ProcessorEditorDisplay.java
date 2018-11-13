@@ -98,4 +98,11 @@ class ProcessorEditorDisplay extends GridPane{
     ArrayList<TextField> getRunTimes() { return runTimes; }
 
     ArrayList<TextField> getContexts() { return contexts; }
+
+    void reset(){
+        runTimes.clear();
+        contexts.clear();
+
+        display();
+    }
 }

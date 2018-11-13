@@ -34,7 +34,11 @@ class NavDisplay extends MenuBar{
         processLbl.setOnMouseClicked(e->display.setProcessPane());
         processorLbl.setOnMouseClicked(e->display.setProcessorPane());
 
-        reset.setOnAction(e->controller.stopSimulation());
+        reset.setOnAction(e->{
+            display.resetDataDisplay();
+            display.resetData();
+            controller.stopSimulation();
+        });
         input.setOnAction(e->controller.getIOData());
         output.setOnAction(e->controller.saveDataIO());
         exit.setOnAction(e->System.exit(0));

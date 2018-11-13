@@ -102,11 +102,6 @@ public class SimProcess extends Circle{
         this.running = false;
     }
 
-    void move(double x, double y){
-        setCenterX(x);
-        setCenterY(y);
-    }
-
     public int getPriority(){ return priority; }
 
     public boolean isTerminated(){ return terminate >= 0; }

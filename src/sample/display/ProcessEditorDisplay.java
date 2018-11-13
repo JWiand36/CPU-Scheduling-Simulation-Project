@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import sample.Controller;
+import sample.module.SimProcess;
 
 import java.util.ArrayList;
 
@@ -145,6 +146,27 @@ class ProcessEditorDisplay extends GridPane{
 
     void setMax(int max) { maxFld.setText(max+"");}
 
+    void setProcesses(ArrayList<SimProcess> processes){
+        names.clear();
+        arrivals.clear();
+        cpus.clear();
+        ios.clear();
+        processTimes.clear();
+        priorities.clear();
+
+        for(SimProcess process: processes){
+            names.add(new TextField(process.getName()));
+            arrivals.add(new TextField(process.getArrivalTime()+""));
+            cpus.add(new TextField(process.getCpuTime()+""));
+            ios.add(new TextField(process.getIoTime()+""));
+            processTimes.add(new TextField(process.getProcessTime()+""));
+            priorities.add(new TextField(process.getPriority()+""));
+        }
+
+        displayManual();
+
+    }
+
     String getMax() { return maxFld.getText(); }
 
     String getArvRate() { return arvFldR.getText(); }
@@ -168,4 +190,19 @@ class ProcessEditorDisplay extends GridPane{
     ArrayList<TextField> getProcessTimes() { return processTimes; }
 
     ArrayList<TextField> getPriorities() { return priorities; }
+
+    void reset(){
+        names.clear();
+        arrivals.clear();
+        cpus.clear();
+        ios.clear();
+        processTimes.clear();
+        priorities.clear();
+
+        if(display.getRandom())
+            displayRandom();
+        else
+            displayManual();
+
+    }
 }

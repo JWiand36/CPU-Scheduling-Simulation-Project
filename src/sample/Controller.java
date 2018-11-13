@@ -33,7 +33,7 @@ public class Controller {
         this.shortest = new Shortest(module, display);
         this.first = new First(module, display);
         this.priority = new Priority(module, display);
-        this.io = new IO(module);
+        this.io = new IO(display);
         this.thread = new Thread(shortest);
 
     }
@@ -161,5 +161,28 @@ public class Controller {
 
     public void getIOData(){ io.inputData(); }
 
-    public void saveDataIO(){}
+    public void saveDataIO(){
+        ArrayList<SimProcess> processes = new ArrayList<>();
+
+        ArrayList<TextField> names = display.getNames();
+        ArrayList<TextField> arrivals = display.getArrivals();
+        ArrayList<TextField> cpus = display.getCpus();
+        ArrayList<TextField> ios = display.getIos();
+        ArrayList<TextField> processTimes = display.getProcessTimes();
+        ArrayList<TextField> priorities = display.getPriorities();
+
+        for (int i = 0; i < names.size(); i++) {
+
+            String name = names.get(i).getText();
+            int arrival = Integer.parseInt(arrivals.get(i).getText());
+            int cpu = Integer.parseInt(cpus.get(i).getText());
+            int io = Integer.parseInt(ios.get(i).getText());
+            int process = Integer.parseInt(processTimes.get(i).getText());
+            int priority = Integer.parseInt(priorities.get(i).getText());
+
+            processes.add(new SimProcess(processes.size()+1, name, arrival, cpu, io, process, priority));
+        }
+
+        io.saveData(processes);
+    }
 }
