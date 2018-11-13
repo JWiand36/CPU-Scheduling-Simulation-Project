@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="CPU-Scheduling-Simulation-Project:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/Controller.class" afterPath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/Controller.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/IO.class" afterPath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/IO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/display/DisplayController.class" afterPath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/display/DisplayController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/display/NavDisplay.class" afterPath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/display/NavDisplay.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/display/ProcessEditorDisplay.class" afterPath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/display/ProcessEditorDisplay.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/display/ProcessorEditorDisplay.class" afterPath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/display/ProcessorEditorDisplay.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/module/SimProcess.class" afterPath="$PROJECT_DIR$/out/production/CPU-Scheduling-Simulation-Project/sample/module/SimProcess.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/input.txt" afterPath="$PROJECT_DIR$/input.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Controller.java" afterPath="$PROJECT_DIR$/src/sample/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/IO.java" afterPath="$PROJECT_DIR$/src/sample/IO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/display/DisplayController.java" afterPath="$PROJECT_DIR$/src/sample/display/DisplayController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/display/NavDisplay.java" afterPath="$PROJECT_DIR$/src/sample/display/NavDisplay.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/display/ProcessEditorDisplay.java" afterPath="$PROJECT_DIR$/src/sample/display/ProcessEditorDisplay.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/display/ProcessorEditorDisplay.java" afterPath="$PROJECT_DIR$/src/sample/display/ProcessorEditorDisplay.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/module/SimProcess.java" afterPath="$PROJECT_DIR$/src/sample/module/SimProcess.java" />
-    </list>
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -90,7 +78,7 @@
       <file leaf-file-name="IO.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/IO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
+            <state relative-caret-position="612">
               <caret line="46" column="54" lean-forward="false" selection-start-line="46" selection-start-column="54" selection-end-line="46" selection-end-column="54" />
               <folding />
             </state>
@@ -402,9 +390,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280507" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -430,7 +420,6 @@
       <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280507" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -863,7 +852,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/IO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
+        <state relative-caret-position="612">
           <caret line="46" column="54" lean-forward="false" selection-start-line="46" selection-start-column="54" selection-end-line="46" selection-end-column="54" />
           <folding />
         </state>
