@@ -20,13 +20,15 @@ class SideDisplay extends FlowPane{
         stratBox.setValue(strats[0]);
         stratBox.getItems().addAll(FXCollections.observableArrayList(strats));
 
+        Label stratLbl = new Label("Strategy");
         Label ranLbl = new Label("Random");
+        Label speedLbl = new Label("Sim Speed");
 
         stratBox.setPrefWidth(100);
         speedFld.setPrefWidth(100);
         runBtn.setPrefWidth(100);
 
-        this.getChildren().addAll(stratBox, ranLbl, ranBox, speedFld, runBtn);
+        this.getChildren().addAll(stratLbl, stratBox, ranLbl, ranBox, speedLbl, speedFld, runBtn);
 
         this.setPadding(new Insets(5));
         this.setMaxWidth(125);
