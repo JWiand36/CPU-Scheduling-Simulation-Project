@@ -23,26 +23,22 @@ public class MainModule {
     private int processRate = 0;
     private int priorityRate = 0;
     private int newArrival = 0;
+    private int speed = 1000;
 
     private boolean random = false;
 
-    public void editSettings(int maxProcesses, int arrivalRate, int cpuRate, int ioRate, int processRate, int priorityRate, boolean random){
+    public void editSettings(int maxProcesses, int arrivalRate, int cpuRate, int ioRate, int processRate, int priorityRate, int speed, boolean random){
         this.maxProcesses = maxProcesses;
         this.arrivalRate = arrivalRate;
         this.cpuRate = cpuRate;
         this.ioRate = ioRate;
         this.processRate = processRate;
         this.priorityRate = priorityRate;
+        this.speed = speed;
         this.random = random;
     }
 
     public void setDisplay(DisplayController display){ this.display = display; }
-
-    public boolean hasMaxProcesses() { return processes.size() + terminatedProcesses.size() >= maxProcesses; }
-
-    public void setMaxProcesses(){ this.maxProcesses = processes.size();}
-
-    public void setMaxProcesses(int max){ this.maxProcesses = max;}
 
     public boolean isRandom(){
         return random;
@@ -52,8 +48,6 @@ public class MainModule {
         return processes.size() > 0; }
 
     public void addProcess(String name, int arrival, int cpu, int io, int process, int priority){
-        if(cpu < 1)
-            cpu = process;
 
         if(io < 0)
             io = 0;
@@ -62,11 +56,13 @@ public class MainModule {
             arrival = 0;
 
         if(process < 0)
-            process = 0;
+            process = 1;
 
-        if(priority < 0){
+        if(cpu < 1 || cpu > process)
+            cpu = process;
+
+        if(priority < 0)
             priority = 0;
-        }
 
         SimProcess newProcess = new SimProcess(this.processes.size() + 1, name, arrival, cpu, io, process, priority);
         processes.add(newProcess);
@@ -75,8 +71,9 @@ public class MainModule {
     public ArrayList<SimProcess> getProcesses(){ return new ArrayList<>(processes); }
 
     //When a user uses the random functionality. It creates a process on spot.
-    public SimProcess createRandomProcess(int arrival){
+    public void createRandomProcess(){
         String name = "P"+(processes.size() + terminatedProcesses.size() + 1);
+        int arrival = (int)(Math.random()*this.arrivalRate)+1;
         int cpu = (int)(Math.random()*this.cpuRate)+1;
         int io = (int)(Math.random()*this.ioRate)+1;
         int process = (int)(Math.random()*this.processRate) + 1;
@@ -89,7 +86,7 @@ public class MainModule {
 
         SimProcess newProcess = new SimProcess(this.processes.size() + terminatedProcesses.size() + 1, name, arrival, cpu, io, process, priority);
         processes.add(newProcess);
-        return newProcess;
+        display.addProcess(newProcess);
     }
 
     //Clears the processes lists and resets the availability of the processor
@@ -113,6 +110,14 @@ public class MainModule {
     }
 
     public void createProcessor(int runTime, int context){
+
+        if(runTime < 0)
+            runTime = 1;
+
+        if(context < 0)
+            context = 0;
+
+        display.displayProcessor(processors.size()+1);
         processors.add(new SimProcessor(display, processors.size()+1, runTime, context));
     }
 
@@ -121,6 +126,8 @@ public class MainModule {
     public int getMaxProcesses(){ return maxProcesses;}
 
     public int getNextArrival(){ return newArrival; }
+
+    public int getSpeed() { return this.speed; }
 
     public boolean isProcessorsEmpty(){ return processors.isEmpty(); }
 }

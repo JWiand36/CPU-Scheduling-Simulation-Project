@@ -26,18 +26,8 @@ public class RoundRobin implements StrategyInterface {
 
         time = 0;
 
-        if(!module.isRandom()){
-            module.setMaxProcesses();
-        }
+        while(module.hasActiveProcesses()){
 
-        while(module.hasActiveProcesses() || !module.hasMaxProcesses()){
-
-            Platform.runLater(()->display.updateTime(time));
-
-            //If the user wants to use a random simulator, the
-            if(module.isRandom() && time >= module.getNextArrival() && !module.hasMaxProcesses()){
-                module.createRandomProcess(time);
-            }
 
             for(SimProcessor processor: module.getProcessors()) {
                 //These are the actions to swap a process when it has finished processing
@@ -58,6 +48,9 @@ public class RoundRobin implements StrategyInterface {
                     for (int i = 0; i < module.getProcesses().size(); i++) {
                         if (highestID < module.getProcesses().get(i).getProcessId())
                             highestID = module.getProcesses().get(i).getProcessId();
+
+                        if(module.getProcesses().get(i).getNextRunTime() <= time)
+                            display.moveToReady(module.getProcesses().get(i));
                     }
                     if (highestID <= lastRunningProcess) {
                         lastRunningProcess = 0;
@@ -70,9 +63,8 @@ public class RoundRobin implements StrategyInterface {
                                 !module.getProcesses().get(i).isRunning())
                             process = module.getProcesses().get(i);
                     }
-                    if (process != null) {
-                        System.out.println("Enter: "+time);
-                        processor.addProcess(process, time);
+                    if (process != null && processor.getRunningProcess() != process) {
+                        processor.addProcess(process);
                         lastRunningProcess = process.getProcessId();
                     } else
                         counter++;
@@ -86,10 +78,9 @@ public class RoundRobin implements StrategyInterface {
             time++;
 
             try{
-                Thread.sleep(1000);
+                Thread.sleep(module.getSpeed());
             }catch(InterruptedException e){
                 //This resets all data if there is an interrupt, also it completes the while loop so the thread can end
-                module.setMaxProcesses(0);
                 for(SimProcess process: module.getProcesses())
                     module.terminateProcess(process);
                 time = 0;

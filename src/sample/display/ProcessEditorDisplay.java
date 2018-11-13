@@ -143,6 +143,8 @@ class ProcessEditorDisplay extends GridPane{
         this.add(priFldR, 5,1);
     }
 
+    void setMax(int max) { maxFld.setText(max+"");}
+
     String getMax() { return maxFld.getText(); }
 
     String getArvRate() { return arvFldR.getText(); }

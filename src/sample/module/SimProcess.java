@@ -21,18 +21,14 @@ public class SimProcess extends Circle{
     private boolean running = false;
 
     public SimProcess(int id, String name, int arrival, int cpu, int io, int process, int priority) {
+        super(25);
         this.id = id;
         this.name = name;
         this.arrival = arrival;
         this.next = arrival;
+        this.cpu = cpu;
+        this.requireCpu = cpu;
 
-        if (cpu == 0 || cpu > process) {
-            this.cpu = process;
-            this.requireCpu = process;
-        }else {
-            this.cpu = cpu;
-            this.requireCpu = cpu;
-        }
 
         this.io = io;
         this.process = process;
@@ -106,6 +102,13 @@ public class SimProcess extends Circle{
         this.running = false;
     }
 
+    void move(double x, double y){
+        setCenterX(x);
+        setCenterY(y);
+    }
+
+    public int getPriority(){ return priority; }
+
     public boolean isTerminated(){ return terminate >= 0; }
 
     public boolean isRunning() { return running; }
@@ -120,6 +123,4 @@ public class SimProcess extends Circle{
                 "\nProcess Time: " + this.initProcess +
                 "\nCompletion Time: " + this.terminate;
     }
-
-    public int getPriority(){ return priority; }
 }

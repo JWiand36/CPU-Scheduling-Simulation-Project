@@ -20,6 +20,12 @@ public class SimProcessor {
     private boolean firstTime = true;
 
     public SimProcessor(DisplayController display, int id, int runTime, int contextSwitch){
+        if(runTime < 0)
+            runTime = 1;
+
+        if(contextSwitch < 0)
+            contextSwitch = 0;
+
         this.id = id;
         this.display = display;
         this.contextSwitch = contextSwitch;
@@ -27,8 +33,9 @@ public class SimProcessor {
     }
 
 
-    public void addProcess(SimProcess process, int time) {
+    public void addProcess(SimProcess process) {
         runningProcess = process;
+        display.moveToContext(this.id, process);
     }
 
     //A new process is added to the processor. The time when a process starts iss displayed and the logic used to know when
@@ -40,7 +47,7 @@ public class SimProcessor {
         runTimeNeeded = runningProcess.getTimeNeeded() + time;
         runningClock = time + processTime;
         running = true;
-        firstTime = false;
+        display.moveToProcessor(this.id, runningProcess);
     }
 
     //The current running process is removed and displayed.
@@ -52,6 +59,13 @@ public class SimProcessor {
             if (temp != null) {
                 Platform.runLater(() -> display.displayProcessorChange(this.id, temp.getName(), time, "Left"));
                 temp.exitProcessor(time);
+
+                //Moves the process in the display
+                if(temp.isTerminated())
+                    display.moveToTerminate(temp);
+                else
+                    display.moveToBusy(temp);
+
                 lastRunningTime = time;
                 runningProcess = null;
             }
@@ -77,12 +91,16 @@ public class SimProcessor {
     public boolean isEmpty(){ return runningProcess == null; }
 
     //This lets the simulation know that the running process has completed it's processing time and may be terminated
-    //or sent to IO.
-    public boolean isFinsihedProcessing(int time){ return time >= runTimeNeeded && runningProcess != null; }
+    //or sent to IO. The processor can't be finished processing if it isn't running
+    public boolean isFinsihedProcessing(int time){ return time >= runTimeNeeded && runningProcess != null && running; }
 
     public int processTime(int time){ return runningProcess.getProcessTime() - time; }
 
     public void resetLastRunningTime(){ lastRunningTime = 0; }
 
     public int getPriority() { return runningProcess.getPriority(); }
+
+    public int getId(){ return id; }
+
+    public SimProcess getRunningProcess() { return runningProcess; }
 }

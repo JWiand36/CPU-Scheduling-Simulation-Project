@@ -49,6 +49,16 @@ class ProcessorEditorDisplay extends GridPane{
             try{
                 int max = Integer.parseInt(maxFld.getText());
 
+                if(max > 10){
+                    max = 10;
+                    maxFld.setText(max+"");
+                }
+
+                if(max < 0){
+                    max = 0;
+                    maxFld.setText(max+"");
+                }
+
                 while(runTimes.size() < max){
                     runTimes.add(new TextField());
                     contexts.add(new TextField());

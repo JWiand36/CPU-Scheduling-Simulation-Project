@@ -17,12 +17,16 @@ class ChartDataDisplay extends GridPane {
         this.setVgap(5);
     }
 
+    void displayProcessor(int id){
+        this.add(new Text("Processor: "+id),0,3*id+1);
+    }
+
     //When a change occurs in the processor, this method displays the info
     void displayChange(int id, String name, int time, String type){
 
-        this.add(new Text(name), position, 2 + 3 * id);
-        this.add(new Text(type), position, 3 + 3 * id);
-        this.add(new Text(time+""), position,  4 + 3 * id);
+        this.add(new Text(name), position, 1 + 3 * id);
+        this.add(new Text(type), position, 2 + 3 * id);
+        this.add(new Text(time+""), position,  3 + 3 * id);
 
         position++;
     }

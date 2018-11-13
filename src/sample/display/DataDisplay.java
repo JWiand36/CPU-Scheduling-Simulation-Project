@@ -1,7 +1,6 @@
 package sample.display;
 
 import javafx.geometry.Insets;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import sample.module.SimProcess;
@@ -9,8 +8,6 @@ import sample.module.SimProcess;
 import java.util.ArrayList;
 
 class DataDisplay extends GridPane {
-
-    private Text time = new Text("Time: ");
 
     DataDisplay(){
         reset();
@@ -31,10 +28,5 @@ class DataDisplay extends GridPane {
     //This resets the board when the user clicks the reset button
     void reset(){
         this.getChildren().clear();
-        time.setText("Time: ");
-        this.add(time,0,0);
     }
-
-    void updateTime(int time){ this.time.setText("Time: " + time);}
-
 }

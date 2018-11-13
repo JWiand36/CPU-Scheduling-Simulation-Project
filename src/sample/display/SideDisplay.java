@@ -10,6 +10,7 @@ class SideDisplay extends FlowPane{
 
     private Button runBtn = new Button("Run");
     private ComboBox<String> stratBox = new ComboBox<>();
+    private TextField speedFld = new TextField("1000");
     private CheckBox ranBox = new CheckBox();
 
     SideDisplay(Controller controller, DisplayController display){
@@ -22,9 +23,10 @@ class SideDisplay extends FlowPane{
         Label ranLbl = new Label("Random");
 
         stratBox.setPrefWidth(100);
+        speedFld.setPrefWidth(100);
         runBtn.setPrefWidth(100);
 
-        this.getChildren().addAll(stratBox, ranLbl, ranBox, runBtn);
+        this.getChildren().addAll(stratBox, ranLbl, ranBox, speedFld, runBtn);
 
         this.setPadding(new Insets(5));
         this.setMaxWidth(125);
@@ -55,6 +57,8 @@ class SideDisplay extends FlowPane{
     Button getRunBtn(){ return runBtn; }
 
     String getStrategy(){ return stratBox.getSelectionModel().getSelectedItem();}
+
+    String getSpeed(){ return speedFld.getText(); }
 
     boolean getRandom(){ return ranBox.isSelected(); }
 }

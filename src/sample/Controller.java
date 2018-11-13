@@ -39,14 +39,12 @@ public class Controller {
     }
 
     public void runSimulation(){
-        //This allows the user to retrieve data from a file if they don't wish to use a random simulation.
-        if(!display.getRandom()){
-            setProcesses();
-        }
-        //Adjusts the settings and the strategy selected.
         setSettings();
-        setStrategy();
         setProcessors();
+        setProcesses();
+
+        //Adjusts the settings and the strategy selected.
+        setStrategy();
         thread.start();
     }
 
@@ -81,6 +79,7 @@ public class Controller {
         int io = 5;
         int pros = 5;
         int pri = 5;
+        int spe = 1000;
 
         try {
             //Checks to make sure everything is a number, otherwise use the values above.
@@ -90,30 +89,49 @@ public class Controller {
             io = Integer.parseInt(display.getIoRate());
             pros = Integer.parseInt(display.getProcessRate());
             pri = Integer.parseInt(display.getPriorityRate());
+            spe = Integer.parseInt(display.getSpeed());
         }catch (NumberFormatException e){ display.displayError();}
 
-        module.editSettings(max, arv, cpu, io, pros, pri, display.getRandom());
+        if(max > 20) {
+            max = 20;
+            display.setMax(max);
+        }else if(max < 0) {
+            max = 1;
+            display.setMax(max);
+        }
+
+
+        module.editSettings(max, arv, cpu, io, pros, pri, spe, display.getRandom());
     }
 
     public void setProcesses(){
-        ArrayList<TextField> names = display.getNames();
-        ArrayList<TextField> arrivals = display.getArrivals();
-        ArrayList<TextField> cpus = display.getCpus();
-        ArrayList<TextField> ios = display.getIos();
-        ArrayList<TextField> processTimes = display.getProcessTimes();
-        ArrayList<TextField> priorities = display.getPriorities();
+        if(!display.getRandom()) {
+            ArrayList<TextField> names = display.getNames();
+            ArrayList<TextField> arrivals = display.getArrivals();
+            ArrayList<TextField> cpus = display.getCpus();
+            ArrayList<TextField> ios = display.getIos();
+            ArrayList<TextField> processTimes = display.getProcessTimes();
+            ArrayList<TextField> priorities = display.getPriorities();
 
-        for(int i = 0; i < names.size(); i++){
+            for (int i = 0; i < names.size(); i++) {
 
-            try{
-                String name = names.get(i).getText();
-                int arrival = Integer.parseInt(arrivals.get(i).getText());
-                int cpu = Integer.parseInt(cpus.get(i).getText());
-                int io = Integer.parseInt(ios.get(i).getText());
-                int process = Integer.parseInt(processTimes.get(i).getText());
-                int priority = Integer.parseInt(priorities.get(i).getText());
-                module.addProcess(name, arrival, cpu, io, process, priority);
-            }catch (NumberFormatException e){ display.displayError(); }
+                try {
+                    String name = names.get(i).getText();
+                    int arrival = Integer.parseInt(arrivals.get(i).getText());
+                    int cpu = Integer.parseInt(cpus.get(i).getText());
+                    int io = Integer.parseInt(ios.get(i).getText());
+                    int process = Integer.parseInt(processTimes.get(i).getText());
+                    int priority = Integer.parseInt(priorities.get(i).getText());
+                    module.addProcess(name, arrival, cpu, io, process, priority);
+                    display.addProcess(module.getProcesses().get(i));
+                } catch (NumberFormatException e) {
+                    display.displayError();
+                }
+            }
+        }else{
+            for(int i = 0; i < module.getMaxProcesses(); i++){
+                module.createRandomProcess();
+            }
         }
     }
 
@@ -127,6 +145,7 @@ public class Controller {
                 int context = Integer.parseInt(display.getContexts().get(i).getText());
 
                 module.createProcessor(runTime, context);
+                display.addProcessor(module.getProcessors().get(i).getId());
 
             }catch(NumberFormatException n){
                 display.displayError();
@@ -135,6 +154,7 @@ public class Controller {
 
         if(module.isProcessorsEmpty()){
             module.createProcessor(2,0);
+            display.addProcessor(module.getProcessors().get(0).getId());
         }
 
     }
