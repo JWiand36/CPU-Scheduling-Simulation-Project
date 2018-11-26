@@ -148,49 +148,64 @@ public class DisplayController {
 
     public void addProcess(SimProcess process){
         moveToBusy(process);
-        main.getChildren().add(process);
+        main.getChildren().addAll(process, process.getText());
     }
 
-    public void moveToReady(SimProcess process){
-        if(process.getProcessId() < 11)
+    public void moveToReady(SimProcess process) {
+        if (process.getProcessId() < 11) {
             process.setCenterX(180);
-        else
+            process.getText().setX(160);
+        } else{
             process.setCenterX(235);
-
+            process.getText().setX(215);
+    }
         process.setFill(Color.RED);
-        process.setCenterY(((process.getProcessId()-1)%10)*55+50);
+        process.setCenterY(((process.getProcessId()-1)%10)*55+55);
+        process.getText().setY(((process.getProcessId()-1)%10)*55+60);
     }
 
     public void moveToBusy(SimProcess process){
-        if(process.getProcessId() < 11)
+        if(process.getProcessId() < 11) {
             process.setCenterX(30);
-        else
+            process.getText().setX(10);
+        }else {
             process.setCenterX(85);
+            process.getText().setX(65);
+        }
 
         process.setFill(Color.GOLD);
         process.setCenterY(((process.getProcessId()-1)%10)*55+50);
+        process.getText().setY(((process.getProcessId()-1)%10)*55+55);
     }
 
     public void moveToContext(int id, SimProcess process){
         process.setFill(Color.YELLOWGREEN);
         process.setCenterY(id*55);
+        process.getText().setY(id*60);
         process.setCenterX(355);
+        process.getText().setX(335);
     }
 
     public void moveToProcessor(int id, SimProcess process){
         process.setFill(Color.GREEN);
         process.setCenterY(id*55);
+        process.getText().setY(id*60);
         process.setCenterX(450);
+        process.getText().setX(430);
     }
 
     public void moveToTerminate(SimProcess process){
-        if(process.getProcessId() < 11)
+        if(process.getProcessId() < 11) {
             process.setCenterX(545);
-        else
+            process.getText().setX(525);
+        }else {
             process.setCenterX(600);
+            process.getText().setX(580);
+        }
 
         process.setFill(Color.GREEN);
         process.setCenterY(((process.getProcessId()-1)%10)*55+50);
+        process.getText().setY(((process.getProcessId()-1)%10)*55+55);
     }
 
     public void addProcessor(int id){

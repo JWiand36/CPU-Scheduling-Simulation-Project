@@ -1,6 +1,7 @@
 package sample.module;
 
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 public class SimProcess extends Circle{
 
@@ -19,6 +20,7 @@ public class SimProcess extends Circle{
     private int initProcess;
     private int priority;
     private boolean running = false;
+    private Text text = new Text();
 
     public SimProcess(int id, String name, int arrival, int cpu, int io, int process, int priority) {
         super(25);
@@ -29,6 +31,7 @@ public class SimProcess extends Circle{
         this.cpu = cpu;
         this.requireCpu = cpu;
 
+        this.text.setText(name);
 
         this.io = io;
         this.process = process;
@@ -59,6 +62,8 @@ public class SimProcess extends Circle{
     public int getNextRunTime() {
         return next;
     }
+
+    public Text getText(){ return text; }
 
     int getTimeNeeded(){ return requireCpu; }
 

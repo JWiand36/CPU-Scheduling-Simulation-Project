@@ -81,7 +81,7 @@ public class MainModule {
 
         this.newArrival = (int)(Math.random() * this.arrivalRate) + arrival;
 
-        if(cpu < 1)
+        if(cpu < 1 || cpu > process)
             cpu = process;
 
         SimProcess newProcess = new SimProcess(this.processes.size() + terminatedProcesses.size() + 1, name, arrival, cpu, io, process, priority);
